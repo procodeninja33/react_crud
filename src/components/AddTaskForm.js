@@ -15,7 +15,7 @@ class AddTaskForm extends React.Component {
 
     handleSubmit(event) {
         event.preventDefault();
-        if (!this.state.task) {
+        if (!this.state.task.trim()) {
             alert('Task is required.');
             return;
         }
@@ -38,7 +38,7 @@ class AddTaskForm extends React.Component {
                                 onChange={this.handleChange} />
                         </div>
                         <div className="col-3">
-                            <button type="submit" className="btn btn-primary mb-2">Add Task</button>
+                            <button type="submit" className="btn btn-success mb-2">Add Task</button>
                         </div>
                     </div>
                 </form>

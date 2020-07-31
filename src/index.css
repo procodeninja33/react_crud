@@ -1,6 +1,10 @@
-.table1 {
+.select-tab {
     border-radius: 5px;
     width: 50%;
     margin: 0px auto;
     float: none;
+}
+
+.cursor-pointer{
+    cursor: pointer;
 }

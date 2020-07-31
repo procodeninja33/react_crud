@@ -11,7 +11,7 @@ class EditTaskForm extends React.Component {
     handleUpdate(event) {
         event.preventDefault();
         const newTask = this.getTask.value;
-        if (!newTask) {
+        if (!newTask.trim()) {
             alert('Task is required.');
             return;
         }
@@ -21,15 +21,18 @@ class EditTaskForm extends React.Component {
     render() {
         return (
             <tr>
-                <td>{this.props.task.id}</td>
+                <td>{this.props.index}</td>
                 <td>
                     <form onSubmit={this.handleUpdate}>
-                        <input defaultValue={this.props.task.task} placeholder="Enter Task"
+                        <input className="form-control" defaultValue={this.props.task.task} placeholder="Enter Task"
                             ref={(input) => this.getTask = input}></input>
                     </form>
                 </td>
+                <td className={this.props.task.status === 'Active' ? 'text-success' : 'text-primary'}>
+                    {this.props.task.status}
+                </td>
                 <td>
-                    <button type="submit" className="btn btn-secondary" onClick={this.handleUpdate}>Update</button>
+                    <button type="submit" className="btn btn-success" onClick={this.handleUpdate}>Update</button>
                 </td>
             </tr>
         )

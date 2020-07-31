@@ -7,7 +7,7 @@ const TaskReducer = (state = [], action) => {
         case 'ADD_TASK':
             return state.concat([
                 {
-                    id: incrementId++, task: action.data.task, editing: false
+                    id: incrementId++, task: action.data.task, editing: false, status: 'Active'
                 }
             ]);
 
@@ -19,14 +19,44 @@ const TaskReducer = (state = [], action) => {
 
         case 'UPDATE_TASK':
             return state.map((task) => {
-                if(task.id === action.id) {
+                if (task.id === action.id) {
                     return {
-                        ...state,
+                        ...task,
                         task: action.data.task,
-                        editing: !task.editing
+                        editing: false,
+                        status: task.status
                     }
-                }
-            })
+                } else return task;
+            });
+
+        case 'STATUS_UPDATE':
+            return state.map((task) => {
+                if (task.id === action.id) {
+                    return {
+                        ...task,
+                        task: task.task,
+                        editing: task.editing,
+                        status: action.data.status
+                    }
+                } else return task;
+            });
+
+        case 'SHOW_ALL_TASK':
+            return state;
+
+        case 'SHOW_ACTIVE_TASK':
+            // return state.filter((task) => task.status === 'Active');
+            return {
+                ...state,
+                status: 'Active'
+            }
+
+        case 'SHOW_COMPLETED_TASK':
+            // return state.filter((task) => task.status === 'Completed');
+            return {
+                ...state,
+                status: 'Completed'
+            }
 
         default:
             return state;
