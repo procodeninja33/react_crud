@@ -23,7 +23,8 @@ class AddTaskForm extends React.Component {
             type: 'ADD_TASK',
             data: { task: this.state.task }
         });
-        this.setState({ task: '' })
+        this.setState({ task: '' });
+        this.props.createTaskHandler();
     }
 
     render() {

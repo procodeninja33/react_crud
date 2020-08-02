@@ -6,6 +6,7 @@ class EditTaskForm extends React.Component {
     constructor(props) {
         super(props);
         this.handleUpdate = this.handleUpdate.bind(this);
+        this.handleCancel = this.handleCancel.bind(this);
     }
 
     handleUpdate(event) {
@@ -15,7 +16,13 @@ class EditTaskForm extends React.Component {
             alert('Task is required.');
             return;
         }
-        this.props.dispatch({ type: 'UPDATE_TASK', id: this.props.task.id, data: { task: newTask } })
+        this.props.dispatch({ type: 'UPDATE_TASK', id: this.props.task.id, data: { task: newTask } });
+        this.props.updateTaskHandler();
+    }
+
+    handleCancel(event) {
+        event.preventDefault();
+        this.props.dispatch({ type: 'CANCEL_TASK', id: this.props.task.id })
     }
 
     render() {
@@ -32,7 +39,8 @@ class EditTaskForm extends React.Component {
                     {this.props.task.status}
                 </td>
                 <td>
-                    <button type="submit" className="btn btn-success" onClick={this.handleUpdate}>Update</button>
+                    <button type="submit" className="btn btn-success btn-sm custom-btn" onClick={this.handleUpdate}>Update</button> &nbsp;
+                    <button type="button" className="btn btn-light btn-sm custom-btn" onClick={this.handleCancel}>Cancel</button>
                 </td>
             </tr>
         )

@@ -29,6 +29,18 @@ const TaskReducer = (state = [], action) => {
                 } else return task;
             });
 
+        case 'CANCEL_TASK':
+            return state.map((task) => {
+                if (task.id === action.id) {
+                    return {
+                        ...task,
+                        task: task.task,
+                        editing: false,
+                        status: task.status
+                    }
+                } else return task;
+            });
+
         case 'STATUS_UPDATE':
             return state.map((task) => {
                 if (task.id === action.id) {
@@ -40,23 +52,6 @@ const TaskReducer = (state = [], action) => {
                     }
                 } else return task;
             });
-
-        case 'SHOW_ALL_TASK':
-            return state;
-
-        case 'SHOW_ACTIVE_TASK':
-            // return state.filter((task) => task.status === 'Active');
-            return {
-                ...state,
-                status: 'Active'
-            }
-
-        case 'SHOW_COMPLETED_TASK':
-            // return state.filter((task) => task.status === 'Completed');
-            return {
-                ...state,
-                status: 'Completed'
-            }
 
         default:
             return state;

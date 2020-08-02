@@ -5,27 +5,31 @@ import Task from './Task';
 
 class AllTask extends React.Component {
 
+    constructor(props) {
+        super(props);
+        this.state = { filter: 'All' }
+    }
+
     handleChangeEvent(event) {
-        if (event.target.value === 'Active') {
-            this.props.dispatch({ type: 'SHOW_ACTIVE_TASK' })
-        } else if (event.target.value === 'Completed') {
-            this.props.dispatch({ type: 'SHOW_COMPLETED_TASK' })
-        } else {
-            this.props.dispatch({ type: 'SHOW_ALL_TASK' })
-        }
+        this.setState({ filter: event.target.value });
     }
 
     render() {
+
+        // filter the task array here
+        let filterElement = this.props.tasks;
+        filterElement = (this.state.filter === 'All') ? filterElement : filterElement.filter((v) => v.status === this.state.filter);
+
         return (
             <div>
-                <h1 className="text-center">All tasks</h1><br />
-                {/* <select className="form-control select-tab" title="Select Status" onChange={(e) => this.handleChangeEvent(e)}>
+                <h1 className="text-center">{this.state.filter} Tasks</h1><br />
+                <select className="form-control select-tab" title="Select Status" onChange={(e) => this.handleChangeEvent(e)}>
                     <option value="All"> All </option>
                     <option value="Active"> Active </option>
-                    <option value="Completed"> Completed </option>
-                </select> */}
+                    <option value="Complete"> Complete </option>
+                </select> <br />
                 <table className="table">
-                    <thead className="table table-hover">
+                    <thead>
                         <tr>
                             <th> Index </th>
                             <th> Task </th>
@@ -34,8 +38,11 @@ class AllTask extends React.Component {
                         </tr>
                     </thead>
                     <tbody>
-                        {this.props.tasks.map((task, index) => {
-                            return (task.editing ? <EditTaskForm key={task.id} task={task} index={index + 1} /> : <Task key={task.id} task={task} index={index + 1} />)
+                        {filterElement.map((task, index) => {
+                            return (task.editing ?
+                                <EditTaskForm updateTaskHandler={this.props.updateTaskHandler} key={task.id} task={task} index={index + 1} /> :
+                                <Task deleteTaskHandler={this.props.deleteTaskHandler} key={task.id} task={task} index={index + 1} />
+                            )
                         })}
                     </tbody>
                 </table>
