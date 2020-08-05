@@ -3,12 +3,6 @@ import { connect } from 'react-redux';
 
 class EditTaskForm extends React.Component {
 
-    constructor(props) {
-        super(props);
-        this.handleUpdate = this.handleUpdate.bind(this);
-        this.handleCancel = this.handleCancel.bind(this);
-    }
-
     handleUpdate(event) {
         event.preventDefault();
         const newTask = this.getTask.value;
@@ -30,7 +24,7 @@ class EditTaskForm extends React.Component {
             <tr>
                 <td>{this.props.index}</td>
                 <td>
-                    <form onSubmit={this.handleUpdate}>
+                    <form onSubmit={e => this.handleUpdate(e)}>
                         <input className="form-control" defaultValue={this.props.task.task} placeholder="Enter Task"
                             ref={(input) => this.getTask = input}></input>
                     </form>
@@ -39,8 +33,8 @@ class EditTaskForm extends React.Component {
                     {this.props.task.status}
                 </td>
                 <td>
-                    <button type="submit" className="btn btn-success btn-sm custom-btn" onClick={this.handleUpdate}>Update</button> &nbsp;
-                    <button type="button" className="btn btn-light btn-sm custom-btn" onClick={this.handleCancel}>Cancel</button>
+                    <button type="submit" className="btn btn-success btn-sm custom-btn" onClick={e => this.handleUpdate(e)}>Update</button> &nbsp;
+                    <button type="button" className="btn btn-light btn-sm custom-btn" onClick={e => this.handleCancel(e)}>Cancel</button>
                 </td>
             </tr>
         )

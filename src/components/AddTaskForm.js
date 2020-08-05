@@ -4,8 +4,6 @@ import { connect } from 'react-redux';
 class AddTaskForm extends React.Component {
     constructor(props) {
         super(props);
-        this.handleChange = this.handleChange.bind(this);
-        this.handleSubmit = this.handleSubmit.bind(this);
         this.state = { task: '' }
     }
 
@@ -31,12 +29,12 @@ class AddTaskForm extends React.Component {
         return (
             <div>
                 <h1 className="text-center"> Create Task</h1>
-                <form onSubmit={this.handleSubmit}>
+                <form onSubmit={e => this.handleSubmit(e)}>
                     <div className="form-row">
                         <div className="col-2"></div>
                         <div className="col-7">
                             <input className="form-control" type="text" placeholder="Enter Task" value={this.state.task}
-                                onChange={this.handleChange} />
+                                onChange={e => this.handleChange(e)} />
                         </div>
                         <div className="col-3">
                             <button type="submit" className="btn btn-success mb-2">Add Task</button>

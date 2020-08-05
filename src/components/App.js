@@ -7,9 +7,6 @@ class App extends Component {
     constructor(props) {
         super(props);
         this.state = { create: false, delete: false, update: false }
-        this.createTaskHandler = this.createTaskHandler.bind(this);
-        this.updateTaskHandler = this.updateTaskHandler.bind(this);
-        this.deleteTaskHandler = this.deleteTaskHandler.bind(this);
     }
 
     createTaskHandler() {
@@ -38,7 +35,7 @@ class App extends Component {
             <div><br />
                 <div className="container">
                     <div className="jumbotron">
-                        <AddTaskForm createTaskHandler={this.createTaskHandler} />
+                        <AddTaskForm createTaskHandler={e => this.createTaskHandler()} />
                         <hr />
                         {this.state.create ? <div className="alert alert-success" role="alert">
                             <h5 className="text-center">Task successfully created !!!</h5>
@@ -49,7 +46,7 @@ class App extends Component {
                         {this.state.delete ? <div className="alert alert-danger" role="alert">
                             <h5 className="text-center">Task successfully deleted !!!</h5>
                         </div> : ''}
-                        <AllTask deleteTaskHandler={this.deleteTaskHandler} updateTaskHandler={this.updateTaskHandler} />
+                        <AllTask deleteTaskHandler={e => this.deleteTaskHandler()} updateTaskHandler={e => this.updateTaskHandler()} />
                     </div>
                 </div>
             </div>
